@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    
+.post-job-container{
+width:500px;
+margin:auto;
+margin-top:40px;
+padding:30px;
+background:white;
+border-radius:10px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.post-job-container h2{
+text-align:center;
+margin-bottom:25px;
+color:#2c3e50;
+}
+
+.form-group{
+margin-bottom:18px;
+display:flex;
+flex-direction:column;
+}
+
+.form-group label{
+font-weight:600;
+margin-bottom:6px;
+color:#444;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+padding:10px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:14px;
+transition:0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+border-color:#007bff;
+outline:none;
+box-shadow:0 0 4px rgba(0,123,255,0.4);
+}
+
+.post-btn{
+width:100%;
+padding:12px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.post-btn:hover{
+background:#0056b3;
+}
+</style>
+
+<div class="post-job-container">
+
+<h2>Post a Job</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="form-group">
+<label>Role</label>
+{{ form.role }}
+</div>
+
+<div class="form-group">
+<label>Package (LPA)</label>
+{{ form.package }}
+</div>
+
+<div class="form-group">
+<label>Location</label>
+{{ form.location }}
+</div>
+
+<div class="form-group">
+<label>Job Mode</label>
+{{ form.job_mode }}
+</div>
+
+<div class="form-group">
+<label>Eligibility Criteria</label>
+{{ form.eligibility }}
+</div>
+
+<button type="submit" class="post-btn">
+Post Job
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+
+    <div class="dashboard-card">
+
+        <h1 class="dashboard-title">Student Dashboard</h1>
+        <h2 class="welcome-text">Welcome, <strong>{{ student.name }}</strong></h2>
+
+        <div class="dashboard-grid">
+
+            <a href="{% url 'student_profile' %}" class="dashboard-item">
+                <div class="icon">👤</div>
+                <h3>Profile</h3>
+                <p>View and update your personal details</p>
+            </a>
+
+            <a href="{% url 'student_search_jobs' %}" class="dashboard-item">
+                <div class="icon">🔍</div>
+                <h3>Search Jobs</h3>
+                <p>Explore available job opportunities</p>
+            </a>
+
+            <a href="{% url 'applied_jobs' %}" class="dashboard-item">
+                <div class="icon">📄</div>
+                <h3>Applied Jobs</h3>
+                <p>Track your application status</p>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

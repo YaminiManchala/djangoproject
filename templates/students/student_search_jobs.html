@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 style="text-align: center;padding-bottom:0px;">Available Jobs</h1>
+
+<table class="job-table">
+<tr>
+<th>Company</th>
+<th>Role</th>
+<th>Package</th>
+<th>Location</th>
+<th>Action</th>
+</tr>
+
+{% for job in jobs %}
+<tr>
+<td>{{ job.company }}</td>
+<td>{{ job.role }}</td>
+<td>{{ job.package }}</td>
+<td>{{ job.location }}</td>
+
+<td>
+{% if job.id in applied_jobs %}
+    <button class="btn-disabled">Applied</button>
+{% else %}
+    <a href="{% url 'apply_job' job.id %}" class="btn-apply">Apply</a>
+{% endif %}
+</td>
+
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

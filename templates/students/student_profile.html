@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="profile-wrapper">
+    <div class="profile-card">
+
+        <h2>Student Profile</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Full Name -->
+            <div class="input-group">
+                <label>Full Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ student.name }}"
+                    required
+                >
+            </div>
+
+            <!-- Email (Read-only) -->
+            <div class="input-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ student.email }}"
+                    readonly
+                >
+            </div>
+
+            <!-- Branch -->
+            <div class="input-group">
+                <label>Branch</label>
+                <input
+                    type="text"
+                    name="branch"
+                    value="{{ student.branch }}"
+                    required
+                >
+            </div>
+
+            <!-- Course -->
+            <div class="input-group">
+                <label>Course</label>
+                <select name="course">
+                    <option value="">Select Course</option>
+                    <option value="BTECH" {% if student.course == "BTECH" %}selected{% endif %}>B.Tech</option>
+                    <option value="MBA" {% if student.course == "MBA" %}selected{% endif %}>MBA</option>
+                    <option value="MCA" {% if student.course == "MCA" %}selected{% endif %}>MCA</option>
+                    <option value="BSC" {% if student.course == "BSC" %}selected{% endif %}>B.Sc</option>
+                    <option value="MSC" {% if student.course == "MSC" %}selected{% endif %}>M.Sc</option>
+                </select>
+            </div>
+
+            <!-- CGPA -->
+            <div class="input-group">
+                <label>CGPA</label>
+                <input
+                    type="number"
+                    step="0.01"
+                    name="cgpa"
+                    value="{{ student.cgpa }}"
+                >
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="input-group">
+                <label>Mobile Number</label>
+                <input
+                    type="text"
+                    name="mobile"
+                    value="{{ student.mobile }}"
+                >
+            </div>
+
+            <!-- Skills -->
+            <div class="input-group">
+                <label>Skills</label>
+                <input
+                    type="text"
+                    name="skills"
+                    value="{{ student.skills }}"
+                    placeholder="e.g. Python, Java, SQL"
+                >
+            </div>
+
+            <button type="submit" class="btn-primary">
+                Update Profile
+            </button>
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}

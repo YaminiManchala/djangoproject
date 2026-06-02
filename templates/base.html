@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<nav class="navbar">
+    <div class="nav-right">
+        <a href="{% url 'home_redirect' %}" class="logout-btn">Home</a>
+        <a href="{% url 'student_logout' %}" class="logout-btn">Logout</a>
+    </div>
+</nav>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Placement Management System{% endblock %}</title>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+    Placement Management System
+</header>
+
+{% block content %}
+<!-- Page specific content goes here -->
+{% endblock %}
+
+<footer>
+    © 2026 Placement Management System | All Rights Reserved
+</footer>
+
+</body>
+</html>

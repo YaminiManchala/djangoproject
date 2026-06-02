@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+/* PAGE LAYOUT */
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    margin-top:40px;
+}
+
+/* PAGE TITLE */
+
+.page-title{
+    font-size:28px;
+    font-weight:600;
+    margin-bottom:25px;
+}
+
+/* CARD */
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* TABLE */
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table thead{
+    background:#f5f6fa;
+}
+
+.table th{
+    padding:14px;
+    text-align:left;
+    font-size:14px;
+    font-weight:600;
+    border-bottom:1px solid #ddd;
+}
+
+.table td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+/* ROW HOVER */
+
+.table tbody tr:hover{
+    background:#fafafa;
+}
+
+/* ACTION COLUMN */
+
+.action-col{
+    text-align:center;
+    width:200px;
+}
+
+.action-cell{
+    text-align:center;
+    vertical-align:middle;
+}
+
+/* BUTTON CONTAINER */
+
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+/* CONFIRM BUTTON */
+
+.btn-confirm{
+    background:#28a745;
+    color:white;
+    padding:6px 14px;
+    border-radius:6px;
+    font-size:13px;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.btn-confirm:hover{
+    background:#218838;
+}
+
+/* REJECT BUTTON */
+
+.btn-reject{
+    background:#dc3545;
+    color:white;
+    padding:6px 14px;
+    border-radius:6px;
+    font-size:13px;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.btn-reject:hover{
+    background:#c82333;
+}
+
+/* DISABLED BUTTONS */
+
+.disabled{
+    opacity:0.7;
+    cursor:not-allowed;
+    width:140px;
+}
+
+/* EMPTY MESSAGE */
+
+.no-data{
+    text-align:center;
+    padding:30px;
+    color:#777;
+    font-size:15px;
+}
+
+</style>
+
+
+<div class="container">
+
+<h2 class="page-title">
+Applicants for {{ job.role }}
+</h2>
+
+<div class="card">
+
+<table class="table">
+
+<thead>
+<tr>
+<th>Student Name</th>
+<th>Email</th>
+<th>CGPA</th>
+<th class="action-col">Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for application in applications %}
+
+<tr>
+
+<td>{{ application.student.name }}</td>
+
+<td>{{ application.student.email }}</td>
+
+<td>{{ application.student.cgpa }}</td>
+
+<td class="action-cell">
+
+{% if application.status == "Applied" or application.status == "Pending" %}
+
+<div class="action-buttons">
+
+<a href="{% url 'confirm_application' application.id %}" class="btn-confirm">
+Confirm
+</a>
+
+<a href="{% url 'reject_application' application.id %}" class="btn-reject">
+Reject
+</a>
+
+</div>
+
+{% elif application.status == "Confirmed" %}
+
+<button class="btn-confirm disabled" disabled>
+Confirmed
+</button>
+
+{% elif application.status == "Rejected" %}
+
+<button class="btn-reject disabled" disabled>
+Rejected
+</button>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="4" class="no-data">
+No applicants found
+</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .job-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.job-table th, .job-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.job-table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.job-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.apply-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 6px 14px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.apply-btn:hover {
+    background-color: #218838;
+}
+</style>
+<h2>Applied Jobs</h2>
+
+<table class="job-table">
+    <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Role</th>
+            <th>Package</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job.company_name }}</td>
+            <td>{{ job.role }}</td>
+            <td>{{ job.package }}</td>
+
+            <td>
+                <a href="{% url 'applied_jobs' job.id %}" class="apply-btn">
+                    Apply
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No jobs available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

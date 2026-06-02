@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.container{
+width:90%;
+margin:auto;
+margin-top:40px;
+}
+
+h2{
+text-align:center;
+margin-bottom:30px;
+font-size:28px;
+color:#333;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+border-radius:8px;
+overflow:hidden;
+}
+
+th{
+background:#2c3e50;
+color:white;
+padding:14px;
+text-align:center;
+font-size:16px;
+}
+
+td{
+padding:12px;
+text-align:center;
+border-bottom:1px solid #eee;
+}
+
+tr:hover{
+background:#f9f9f9;
+}
+
+/* STATUS BADGES */
+
+.status{
+padding:6px 14px;
+border-radius:20px;
+font-size:14px;
+font-weight:600;
+}
+
+.pending{
+background:#fff3cd;
+color:#856404;
+}
+
+.confirmed{
+background:#d4edda;
+color:#155724;
+}
+
+.rejected{
+background:#f8d7da;
+color:#721c24;
+}
+
+.no-data{
+text-align:center;
+padding:20px;
+font-size:16px;
+color:#777;
+}
+
+</style>
+
+
+<div class="container">
+
+<h2>Applied Jobs</h2>
+
+<table>
+
+<tr>
+<th>Company</th>
+<th>Role</th>
+<th>Package</th>
+<th>Location</th>
+<th>Status</th>
+</tr>
+
+{% for app in applications %}
+
+<tr>
+
+<td>{{ app.job.company.name }}</td>
+<td>{{ app.job.role }}</td>
+<td>{{ app.job.package }} LPA</td>
+<td>{{ app.job.location }}</td>
+
+<td>
+
+{% if app.status == "Pending" or app.status == "Applied" %}
+<span class="status pending">Pending</span>
+
+{% elif app.status == "Confirmed" %}
+<span class="status confirmed">Confirmed</span>
+
+{% elif app.status == "Rejected" %}
+<span class="status rejected">Rejected</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+<td colspan="5" class="no-data">No applications yet</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}
